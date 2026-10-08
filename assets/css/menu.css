@@ -259,26 +259,37 @@ html, body {
 
 /* ---------------- menu ---------------- */
 
+#screen.go #menu { animation: fade-in 700ms steps(6) 1050ms forwards; }
+/* the menu itself is an Undertale box, exactly like the dialogue panel, so it
+   stays readable even while a fully lit tower rolls past behind it. */
 #menu {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   align-self: start;
-  margin-top: calc(var(--u) * 3);
+  justify-self: center;
+  margin-top: calc(var(--u) * 2);
+  min-width: calc(var(--u) * 40);
+  padding: calc(var(--u) * 1.2) calc(var(--u) * 2) calc(var(--u) * 1.3);
+  background: rgba(0, 0, 0, 0.74);
+  border: var(--line) solid var(--box-border);
+  border-radius: calc(var(--u) * 0.8);
+  box-shadow: var(--shadow), inset 0 0 calc(var(--u) * 6) rgba(20, 30, 80, 0.5);
   opacity: 0;
 }
-#screen.go #menu { animation: fade-in 700ms steps(6) 1050ms forwards; }
-#menu::before {
+#menu::after {
   content: '';
   position: absolute;
-  inset: calc(var(--u) * -2.2) calc(var(--u) * -6);
-  background:
-    radial-gradient(ellipse at center, rgba(0, 0, 0, 0.72) 30%, rgba(0, 0, 0, 0.42) 62%, rgba(0, 0, 0, 0) 100%);
+  inset: 0;
+  border-radius: inherit;
+  background-image:
+    linear-gradient(45deg, rgba(255, 255, 255, 0.028) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.028) 75%),
+    linear-gradient(45deg, rgba(255, 255, 255, 0.028) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.028) 75%);
+  background-size: 4px 4px;
+  background-position: 0 0, 2px 2px;
   pointer-events: none;
-  z-index: -1;
 }
-
 #list {
   list-style: none;
   margin: 0;
@@ -297,7 +308,10 @@ html, body {
   letter-spacing: calc(var(--u) * 0.14);
   color: var(--bone-dim);
   padding: calc(var(--u) * 0.25) calc(var(--u) * 1.4) calc(var(--u) * 0.25) calc(var(--u) * 5.2);
-  text-shadow: calc(var(--u) * 0.35) calc(var(--u) * 0.35) 0 rgba(0, 0, 0, 0.9);
+  text-shadow:
+    0 0 calc(var(--u) * 1.1) rgba(0, 0, 0, 0.95),
+    0 0 calc(var(--u) * 2.2) rgba(0, 0, 0, 0.75),
+    calc(var(--u) * 0.35) calc(var(--u) * 0.35) 0 rgba(0, 0, 0, 0.9);
   transition: color 90ms steps(2), transform 90ms steps(2);
   cursor: pointer;
   user-select: none;

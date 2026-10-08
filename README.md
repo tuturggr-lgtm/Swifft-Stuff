@@ -4,6 +4,11 @@ An Undertale-flavoured **main menu** for Swifft Stuff: a procedurally generated,
 endlessly scrolling pixel-art night city with a soul cursor, dialogue-box panels
 and synth UI blips. Open `index.html` and press a key.
 
+![the menu](docs/preview.png)
+
+*(that's a render straight out of `tools/mock-render.cjs` — same city engine,
+same font, same sizes as the live page)*
+
 ```
 open index.html            # or run any static server, e.g.
 python3 -m http.server 8000

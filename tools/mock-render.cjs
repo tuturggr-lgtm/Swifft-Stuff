@@ -73,9 +73,13 @@ function shadowText(str, cx, cy, px, col, ls, align) {
   let sx = align === 'center' ? cx - total / 2 : cx;
   for (const ch of str) {
     x.font = px + 'px ' + FONT;
-    x.fillStyle = 'rgba(0,0,0,0.85)';
     x.textAlign = 'left';
-    x.fillText(ch, sx + u * 0.5, cy + u * 0.5);
+    x.shadowColor = 'rgba(0,0,0,0.55)';
+    x.shadowBlur = px * 0.9;
+    x.fillStyle = col;
+    x.fillText(ch, sx, cy);
+    x.shadowBlur = 0;
+    x.shadowColor = 'rgba(0,0,0,0)';
     x.fillStyle = col;
     x.fillText(ch, sx, cy);
     sx += measure(ch, px) + ls;
@@ -142,8 +146,20 @@ const selected = Number(process.env.SEL || '2');
 let my = subY + 0.8 * u + 3 * u + itemPx * 1.15;
 const itemH = itemPx * 1.15 + 0.25 * u * 2;
 const gap = 0.5 * u;
-const widest = Math.max.apply(null, items.map((it, i) => measure(it[1], itemPx) + measure('\u2014 ' + hints[i], 2 * u) + 6.6 * u));
-const menuX = W / 2 - widest / 2;
+// geometry straight out of menu.css:
+//   .item padding: 0.25u 1.4u 0.25u 5.2u   (#menu padding: 1.2u 2u)
+const measureLS = (str, px, ls) => measure(str, px) + ls * Math.max(0, str.length - 1);
+const contentW = Math.max.apply(null, items.map((it, i) =>
+  5.2 * u + measureLS(it[1], itemPx, u * 0.14) + 1.2 * u + measureLS('\u2014 ' + hints[i], 2 * u, u * 0.05) + 1.4 * u));
+const boxW = Math.max(contentW + 4 * u, 40 * u);
+const boxX = W / 2 - boxW / 2;
+const menuX = boxX + 2 * u;
+// the menu box itself (mirrors the Undertale box on #menu)
+(function () {
+  const blockH = items.length * (itemH + gap);
+  box(boxX, my - 1.2 * u, boxW, blockH + 2.5 * u, 'rgba(0,0,0,0.74)', '#ffffff', 3);
+})();
+
 for (let i = 0; i < items.length; i++) {
   const y = my + i * (itemH + gap);
   const sel = i === selected;
@@ -161,6 +177,7 @@ for (let i = 0; i < items.length; i++) {
     bloom(hx + 1.7 * u, hy + 1.36 * u, 1.4 * u, 'rgb(255,43,43)', 0.35);
   }
 }
+
 my += items.length * (itemH + gap);
 
 /* --- the dialogue panel --- */

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#04061a">
+<title>SWIFFT STUFF</title>
+<meta name="description" content="Swifft Stuff — a neon city main menu. Undertale-style UI, endlessly scrolling skyline, and the sky that does not move.">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAOElEQVR42mNgGF7gv7b2fxAmSx4miUsRXnl0SWLxcDKAHEOIigmSNBNrCEkJiizNxCYsqiRtqgAA/v8AKBGHOgMAAAAASUVORK5CYII=">
+<link rel="stylesheet" href="assets/css/menu.css">
+</head>
+<body>
+
+<!-- ============ the scrolling city (canvas) ============ -->
+<div id="screen" class="scanlines vignette bloom">
+  <canvas id="city" width="1280" height="720" aria-label="An endless neon city sliding past. The sky stays still."></canvas>
+
+  <!-- ============ the main menu ============ -->
+  <div id="ui">
+
+    <div id="topbar">
+      <div class="hud" id="hud-keys">
+        <b>SWIFFT STUFF</b> <span style="color:#56566a">v0.1</span><br>
+        <span class="key">&#8593;</span><span class="key">&#8595;</span> move
+        <span class="sep">|</span> <span class="key">Z</span> select
+        <span class="sep">|</span> <span class="key">M</span> music
+        <span class="sep">|</span> <span class="key">H</span> hide ui
+      </div>
+      <div class="hud" id="music" title="click to play / pause &mdash; or drag an mp3 anywhere">
+        <span class="label">TRACK</span>
+        <span class="title">
+          <span class="eq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          <span id="song">Video Game Lobby (feat. Dashie)</span>
+        </span>
+        <span class="state">PRESS ANY KEY</span>
+      </div>
+    </div>
+
+    <div id="hero">
+      <h1 id="title">SWIFFT STUFF</h1>
+      <p id="subtitle">an endless city <span class="dot">&#9829;</span> a sky that holds still</p>
+    </div>
+
+    <nav id="menu" aria-label="Main menu">
+      <ul id="list" role="listbox" aria-label="Main menu options"></ul>
+    </nav>
+
+    <div id="panel" class="box">
+      <p id="text">* PRESS ANY KEY TO BEGIN.</p>
+      <span id="caret">&#9660;</span>
+    </div>
+
+    <div id="hints">
+      <span><b>1-5</b> jump</span>
+      <span><b>Z</b> confirm</span>
+      <span><b>X</b> back</span>
+      <span><b>P</b> pause city</span>
+      <span><b>F</b> fullscreen</span>
+      <span class="warn">sky: static</span>
+    </div>
+  </div>
+
+  <!-- ============ options ============ -->
+  <div id="options" role="dialog" aria-label="Options">
+    <div class="box">
+      <h2 class="box-title">OPTIONS <span class="esc">X / ESC to close</span></h2>
+      <div class="opt-list"></div>
+    </div>
+  </div>
+
+  <!-- ============ credits ============ -->
+  <div id="credits" role="dialog" aria-label="Credits">
+    <div class="box">
+      <h2 class="box-title">CREDITS <span class="esc">X / ESC to close</span></h2>
+      <ul id="credit-list">
+        <li><span class="role">everything</span> <span class="who">you, and the little robot in the sandbox</span></li>
+        <hr>
+        <li><span class="role">direction</span> <span class="who">a city that scrolls forever</span></li>
+        <li><span class="role">depth</span> <span class="who">4 parallax layers &mdash; 0.08 / 0.55 / 1.0</span></li>
+        <li><span class="role">the sky</span> <span class="who soul">static. it does not move.</span></li>
+        <li><span class="role">art</span> <span class="who">generated pixel by pixel, dithered by hand</span></li>
+        <li><span class="role">music</span> <span class="who">&ldquo;Video Game Lobby (feat. Dashie)&rdquo;</span></li>
+        <li><span class="role">font</span> <span class="who">Determination Mono &mdash; the Undertale dialogue font</span></li>
+        <li><span class="role">sanity</span> <span class="who">strictly 2 pixels at a time</span></li>
+        <hr>
+        <li><span class="role"></span> <span class="who">drop an mp3 on the window to change the song.</span></li>
+        <li><span class="role"></span> <span class="who soul">stay determined. &#9829;</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ centre toast ============ -->
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <!-- ============ "press any key" gate ============ -->
+  <div id="gate">
+    <div class="blink">PRESS ANY KEY &nbsp;&#9829;&nbsp; OR CLICK</div>
+  </div>
+
+  <!-- ============ drag & drop ============ -->
+  <div id="drop-veil">
+    <div>
+      DROP THE TRACK HERE<br>
+      <span class="sub">mp3 / wav / ogg &mdash; it becomes the lobby theme</span>
+    </div>
+  </div>
+
+  <div id="flash"></div>
+  <div id="fade"></div>
+  <div id="crt"></div>
+</div>
+
+<script src="assets/js/art.js"></script>
+<script src="assets/js/city.js"></script>
+<script src="assets/js/audio.js"></script>
+<script src="assets/js/menu.js"></script>
+</body>
+</html>
